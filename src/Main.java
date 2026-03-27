@@ -13,24 +13,42 @@ public class Main {
             System.out.println("4. Delete");
             System.out.println("5. Exit");
 
-            int choice = sc.nextInt();
+            // SAFE INPUT FOR CHOICE
+            int choice;
+            if (sc.hasNextInt()) {
+                choice = sc.nextInt();
+            } else {
+                System.out.println("❌ Enter numbers only!");
+                sc.next();
+                continue;
+            }
 
             switch (choice) {
+
                 case 1:
-                    System.out.print("ID: ");
+                    sc.nextLine(); // clear buffer
+
+                    System.out.print("Enter ID: ");
+                    if (!sc.hasNextInt()) {
+                        System.out.println("❌ Invalid ID!");
+                        sc.next();
+                        break;
+                    }
                     int id = sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("Name: ");
+
+                    sc.nextLine(); // clear buffer
+                    System.out.print("Enter Name: ");
                     String name = sc.nextLine();
-                    System.out.print("Age: ");
-                    int age = sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("Department: ");
-                    String dept = sc.nextLine();
-                    System.out.print("Salary: ");
+
+                    System.out.print("Enter Salary: ");
+                    if (!sc.hasNextDouble()) {
+                        System.out.println("❌ Invalid Salary!");
+                        sc.next();
+                        break;
+                    }
                     double salary = sc.nextDouble();
 
-                    dao.addEmployee(new Employee(id, name, age, dept, salary));
+                    dao.addEmployee(new Employee(id, name, salary));
                     break;
 
                 case 2:
@@ -39,20 +57,42 @@ public class Main {
 
                 case 3:
                     System.out.print("Enter ID: ");
+                    if (!sc.hasNextInt()) {
+                        System.out.println("❌ Invalid ID!");
+                        sc.next();
+                        break;
+                    }
                     int uid = sc.nextInt();
-                    System.out.print("New Salary: ");
+
+                    System.out.print("Enter New Salary: ");
+                    if (!sc.hasNextDouble()) {
+                        System.out.println("❌ Invalid Salary!");
+                        sc.next();
+                        break;
+                    }
                     double sal = sc.nextDouble();
+
                     dao.updateEmployee(uid, sal);
                     break;
 
                 case 4:
                     System.out.print("Enter ID: ");
+                    if (!sc.hasNextInt()) {
+                        System.out.println("❌ Invalid ID!");
+                        sc.next();
+                        break;
+                    }
                     int did = sc.nextInt();
+
                     dao.deleteEmployee(did);
                     break;
 
                 case 5:
+                    System.out.println("Exiting...");
                     System.exit(0);
+
+                default:
+                    System.out.println("❌ Invalid choice!");
             }
         }
     }
